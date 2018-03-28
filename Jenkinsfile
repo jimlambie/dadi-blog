@@ -7,7 +7,7 @@ pipeline {
         // 'This value is exported to all commands in this stage'
         IMAGE_TAG = "${env.BRANCH_NAME}"
         HOST_BUILD = ":2375"
-        IMAGE_NAME = ":5000//:$IMAGE_TAG"
+        IMAGE_NAME = ":5000//:${IMAGE_TAG}"
       }
       
       steps {
