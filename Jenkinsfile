@@ -11,6 +11,7 @@ pipeline {
       steps {
         echo 'Building...'
         input 'Hi'
+        sh 'echo "HI"'
       }
     }
   }
