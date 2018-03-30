@@ -13,6 +13,11 @@ pipeline {
           script: 'git --no-pager show -s --format=\'%ae\'',
           returnStdout: true
         ).trim()
+
+        BRANCH_TAG = sh (
+          script: "echo \"${env.BRANCH_NAME//\//-}\"",
+          returnStdout: true
+        ).trim()
       }
       
       steps {
