@@ -15,7 +15,7 @@ pipeline {
         ).trim()
 
         BRANCH_TAG = sh (
-          script: 'echo "${env.BRANCH_NAME//\//-}"',
+          script: "echo ${env.BRANCH_NAME} | sed 's/\//-/g'",
           returnStdout: true
         ).trim()
       }
@@ -26,6 +26,7 @@ pipeline {
         sh 'echo "HI"'
         sh "echo ${env.BUILD_TAG}"
         sh "echo ${env.BRANCH_NAME}"
+        sh "echo $BRANCH_TAG"
 
         sh "echo $GIT_COMMIT_EMAIL"
 
