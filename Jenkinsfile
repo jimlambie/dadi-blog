@@ -29,7 +29,7 @@ pipeline {
         echo 'Deploying...'
 
         sh "docker pull jimlambie/hello:${env.BUILD_ID}"
-        sh "docker run -d --restart=always --name 'hello' -p 50000:3001 jimlambie/hello:${env.BUILD_ID}"
+        sh "docker run -d --restart=always --name 'hello' -p 50000:3001 jimlambie/hello:${env.BUILD_ID} -e NODE_ENV=test"
       }
     }
   }
