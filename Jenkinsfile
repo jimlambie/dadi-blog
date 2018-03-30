@@ -17,9 +17,10 @@ pipeline {
         sh "echo ${env.BUILD_TAG}"
         sh "echo ${env.BRANCH_NAME}"
 
-        sh "docker build -t jimlambie/${env.BUILD_ID} ."
-        sh "docker push jimlambie/${env.BUILD_ID}"
-        sh "docker rmi jimlambie/${env.BUILD_ID}"
+        sh "docker build -t friendlyhello ."
+        sh "docker tag friendlyhello jimlambie/hello:${env.BUILD_ID}"
+        sh "docker push jimlambie/hello:${env.BUILD_ID}"
+        sh "docker rmi jimlambie/hello:${env.BUILD_ID}"
       }
     }
   }
