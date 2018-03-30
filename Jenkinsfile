@@ -39,7 +39,7 @@ pipeline {
         
 
         sh "docker build -t ${env.BUILD_TAG.toLowerCase()} ."
-        sh "docker tag friendlyhello jimlambie/${env.BUILD_TAG.toLowerCase()}"
+        sh "docker tag ${env.BUILD_TAG.toLowerCase()} jimlambie/${env.BUILD_TAG.toLowerCase()}"
         sh "docker push jimlambie/${env.BUILD_TAG.toLowerCase()}"
         sh "docker rmi jimlambie/${env.BUILD_TAG.toLowerCase()}"
       }
@@ -49,8 +49,8 @@ pipeline {
       steps {
         echo 'Deploying...'
 
-        sh "docker pull jimlambie/${env.BUILD_TAG}"
-        sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -p 50000:3001 jimlambie/${env.BUILD_TAG}"
+        sh "docker pull jimlambie/${env.BUILD_TAG.toLowerCase()}"
+        sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -p 50000:3001 jimlambie/${env.BUILD_TAG.toLowerCase()}"
       }
     }
   }
