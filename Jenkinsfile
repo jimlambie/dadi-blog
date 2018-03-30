@@ -17,9 +17,9 @@ pipeline {
         sh "echo ${env.BUILD_TAG}"
         sh "echo ${env.BRANCH_NAME}"
 
-        sh "docker build -t jl/${env.BRANCH_NAME} ."
-        sh "docker push jl/${env.BRANCH_NAME}"
-        sh "docker rmi jl/${env.BRANCH_NAME}"
+        sh "docker build -t jimlambie/${env.BRANCH_NAME} ."
+        sh "docker push jimlambie/${env.BRANCH_NAME}"
+        sh "docker rmi jimlambie/${env.BRANCH_NAME}"
       }
     }
   }
