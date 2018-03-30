@@ -18,7 +18,7 @@ pipeline {
         sh "echo ${env.BRANCH_NAME}"
 
         sh "docker build -t jl/${env.BRANCH_NAME} ."
-        sh "docker push ${env.BRANCH_NAME}"
+        sh "docker push jl/${env.BRANCH_NAME}"
         sh "docker rmi jl/${env.BRANCH_NAME}"
       }
     }
