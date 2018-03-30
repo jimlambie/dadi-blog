@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build') {
       environment {
-        IMAGE_TAG = "${env.BRANCH_NAME}"
+        IMAGE_TAG = "${env.JOB_NAME.toLowerCase()}"
         HOST_BUILD = ":2375"
         IMAGE_NAME = ":5000//:${env.BRANCH_NAME}"
 
@@ -30,7 +30,7 @@ pipeline {
         echo 'Building...'
 
         sh 'echo "HI"'
-        sh "echo ${env.BUILD_TAG}"
+        sh "echo ${env.BUILD_TAG.toLowerCase()}"
         sh "echo ${env.BRANCH_NAME}"
 
         sh "echo $GIT_COMMIT_EMAIL"
@@ -38,10 +38,10 @@ pipeline {
         sh "echo ${env.JOB_NAME.toLowerCase()}"
         
 
-        sh "docker build -t ${env.BUILD_TAG} ."
-        sh "docker tag friendlyhello jimlambie/${env.BUILD_TAG}"
-        sh "docker push jimlambie/${env.BUILD_TAG}"
-        sh "docker rmi jimlambie/${env.BUILD_TAG}"
+        sh "docker build -t ${env.BUILD_TAG.toLowerCase()} ."
+        sh "docker tag friendlyhello jimlambie/${env.BUILD_TAG.toLowerCase()}"
+        sh "docker push jimlambie/${env.BUILD_TAG.toLowerCase()}"
+        sh "docker rmi jimlambie/${env.BUILD_TAG.toLowerCase()}"
       }
     }
 
