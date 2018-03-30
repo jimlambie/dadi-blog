@@ -14,7 +14,7 @@ pipeline {
         ).trim()
 
         BRANCH_TAG = sh (
-          script: "${env.BRANCH_NAME} | tr '/' '-'" | tr '[:upper:]' '[:lower:]',
+          script: "${env.BRANCH_NAME} | tr '/' '-'",
           returnStdout: true
         ).trim()
       }
@@ -27,7 +27,8 @@ pipeline {
         sh "echo ${env.BRANCH_NAME}"
 
         sh "echo $GIT_COMMIT_EMAIL"
-        sh "echo $BRANCH_TAG"
+        sh "echo ${BRANCH_TAG.toLowerCase()}"
+        sh "echo ${env.JOB_NAME.toLowerCase()}"
 
         sh "docker build -t ${env.BUILD_TAG} ."
         sh "docker tag friendlyhello jimlambie/${env.BUILD_TAG}"
