@@ -17,9 +17,9 @@ pipeline {
         sh "echo ${env.BUILD_TAG}"
         sh "echo ${env.BRANCH_NAME}"
 
-        sh "/usr/local/bin/docker -H $HOST_BUILD build -t ${IMAGE_NAME} ."
-        sh '/usr/local/bin/docker -H $HOST_BUILD push $IMAGE_NAME'
-        sh '/usr/local/bin/docker -H $HOST_BUILD rmi $IMAGE_NAME'
+        sh "docker -H $HOST_BUILD build -t ${IMAGE_NAME} ."
+        sh 'docker -H $HOST_BUILD push $IMAGE_NAME'
+        sh 'docker -H $HOST_BUILD rmi $IMAGE_NAME'
       }
     }
   }
