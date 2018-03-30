@@ -17,6 +17,10 @@ pipeline {
         sh "echo ${env.BUILD_TAG}"
         sh "echo ${env.BRANCH_NAME}"
 
+        sh "echo ${env.BRANCH_NAME##*/}"
+        sh "echo ${env.JOB_NAME##*/}"
+
+        sh "docker rm friendlyhello"
         sh "docker build -t friendlyhello ."
         sh "docker tag friendlyhello jimlambie/hello:${env.BUILD_ID}"
         sh "docker push jimlambie/hello:${env.BUILD_ID}"
