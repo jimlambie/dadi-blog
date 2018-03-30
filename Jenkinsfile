@@ -1,6 +1,11 @@
 pipeline {
   agent any
-  
+
+  GIT_COMMIT_EMAIL = sh (
+    script: 'git --no-pager show -s --format=\'%ae\'',
+    returnStdout: true
+  ).trim()
+
   stages {
     stage('Build') {
       environment {
@@ -17,8 +22,7 @@ pipeline {
         sh "echo ${env.BUILD_TAG}"
         sh "echo ${env.BRANCH_NAME}"
 
-        sh "echo ${env.BRANCH_NAME##*/}"
-        sh "echo ${env.JOB_NAME##*/}"
+        sh "echo ${env.GIT_COMMIT_EMAIL}"
 
         sh "docker rm friendlyhello"
         sh "docker build -t friendlyhello ."
