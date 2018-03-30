@@ -15,7 +15,7 @@ pipeline {
         ).trim()
 
         BRANCH_TAG = sh (
-          script: "echo \"${env.BRANCH_NAME//\//-}\"",
+          script: "echo """${env.BRANCH_NAME//\//-}"""",
           returnStdout: true
         ).trim()
       }
