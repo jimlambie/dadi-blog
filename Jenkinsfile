@@ -12,6 +12,11 @@ pipeline {
           script: 'git --no-pager show -s --format=\'%ae\'',
           returnStdout: true
         ).trim()
+
+        BRANCH_TAG = sh (
+          script: "echo ${env.BRANCH_NAME} | tr '/' '-'",
+          returnStdout: true
+        ).trim()
       }
       
       steps {
@@ -22,6 +27,7 @@ pipeline {
         sh "echo ${env.BRANCH_NAME}"
 
         sh "echo $GIT_COMMIT_EMAIL"
+        sh "echo $BRANCH_TAG"
 
         sh "docker build -t ${env.BUILD_TAG} ."
         sh "docker tag friendlyhello jimlambie/${env.BUILD_TAG}"
