@@ -50,7 +50,7 @@ pipeline {
         echo 'Deploying...'
 
         sh "docker pull jimlambie/${env.BUILD_TAG.toLowerCase()}"
-        sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -e VIRTUAL_HOST=${env.BUILD_TAG.toLowerCase()}.mustdash.es -p 50000:3001 jimlambie/${env.BUILD_TAG.toLowerCase()}"
+        sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -e VIRTUAL_HOST=${env.BUILD_TAG.toLowerCase()}.mustdash.es -p 3001:3001 jimlambie/${env.BUILD_TAG.toLowerCase()}"
       }
     }
   }
