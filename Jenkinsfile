@@ -51,6 +51,8 @@ pipeline {
 
         sh "docker pull jimlambie/${env.BUILD_TAG.toLowerCase()}"
         sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -e VIRTUAL_HOST=${env.BUILD_TAG.toLowerCase()}.mustdash.es -p 3001:3001 jimlambie/${env.BUILD_TAG.toLowerCase()}"
+
+        slackSend channel: '@dave.macp', color: 'good', message: "${env.JOB_NAME} deployed. Test it here: http://${env.BUILD_TAG.toLowerCase()}.mustdash.es", teamDomain: 'when-moon', token: 'K45yCJ2Q3NFXZGntqkbCCwEe'
       }
     }
   }
