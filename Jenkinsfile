@@ -14,7 +14,7 @@ pipeline {
         ).trim()
 
         BRANCH_TAG = sh (
-          script: "${env.BRANCH_NAME} | tr '/' '-'",
+          script: "echo '${env.BRANCH_NAME}' | tr '/' '-'",
           returnStdout: true
         ).trim()
       }
@@ -22,7 +22,7 @@ pipeline {
       steps {
         script {
           env.BID = sh (
-            script: "${env.BRANCH_NAME} | tr '/' '-'",
+            script: "echo '${env.BRANCH_NAME}' | tr '/' '-'",
             returnStdout: true
           ).trim()
         }
@@ -50,7 +50,7 @@ pipeline {
         echo 'Deploying...'
 
         sh "docker pull jimlambie/${env.BUILD_TAG.toLowerCase()}"
-        sh "docker run -d --restart=always --name ${env.JOB_NAME.toLowerCase()} -e NODE_ENV=test -e VIRTUAL_HOST=${env.BUILD_TAG.toLowerCase()}.mustdash.es -p 3001:3001 jimlambie/${env.BUILD_TAG.toLowerCase()}"
+        sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -e VIRTUAL_HOST=${env.BUILD_TAG.toLowerCase()}.mustdash.es -p 3001:3001 jimlambie/${env.BUILD_TAG.toLowerCase()}"
       }
     }
   }
