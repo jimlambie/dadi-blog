@@ -53,6 +53,9 @@ pipeline {
         sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -e VIRTUAL_HOST=${env.BUILD_TAG.toLowerCase()}.mustdash.es -p 3001:3001 jimlambie/${env.BUILD_TAG.toLowerCase()}"
 
         slackSend color: "good", message: "${env.JOB_NAME} deployed. Test it here: http://${env.BUILD_TAG.toLowerCase()}.mustdash.es"
+
+        input message: 'Finished testing? (Click "Proceed" to continue)'
+        sh "docker rm -f --name 'hello'"
       }
     }
   }
