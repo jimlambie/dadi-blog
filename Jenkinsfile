@@ -1,28 +1,17 @@
 pipeline {
   agent any
 
+  environment {
+    IMAGE_TAG = sh (
+      script: "echo '${env.JOB_NAME.toLowerCase()}' | tr '/' '-'",
+      returnStdout: true
+    ).trim()
+  }
+  
   stages {
-    stage('Build') {
-      environment {
-        IMAGE_TAG = sh (
-          script: "echo '${env.JOB_NAME.toLowerCase()}' | tr '/' '-'",
-          returnStdout: true
-        ).trim()
-      }
-      
+    stage('Build') {    
       steps {
-        script {
-          env.BID = sh (
-            script: "echo '${env.BRANCH_NAME}' | tr '/' '-'",
-            returnStdout: true
-          ).trim()
-        }
-
         echo 'Building...'
-
-        sh "echo ${env.BID.toLowerCase()}"
-        sh "echo ${IMAGE_TAG.toLowerCase()}"
-        
 
         sh "docker build -t ${IMAGE_TAG} ."
         sh "docker tag ${IMAGE_TAG} jimlambie/${IMAGE_TAG}"
