@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     IMAGE_TAG = sh (
-      script: "echo '${env.JOB_NAME.toLowerCase()}' | tr '/' '-' | tr '%2f' '-'",
+      script: "echo '${env.JOB_NAME.toLowerCase()}' | tr '/' '-'",
       returnStdout: true
     ).trim()
   }
