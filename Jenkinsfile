@@ -11,7 +11,7 @@ pipeline {
   stages {
     stage('Build') {    
       steps {
-        echo 'Building...'
+        echo "Building...${IMAGE_TAG}"
 
         sh "docker build -t ${IMAGE_TAG} ."
         sh "docker tag ${IMAGE_TAG} jimlambie/${IMAGE_TAG}"
