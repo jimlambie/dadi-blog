@@ -7,7 +7,7 @@ pipeline {
       returnStdout: true
     ).trim()
   }
-  
+
   stages {
     stage('Build') {    
       steps {
@@ -29,7 +29,7 @@ pipeline {
 
         slackSend color: "good", message: "${env.JOB_NAME} deployed. Test it here: http://${IMAGE_TAG}.mustdash.es"
 
-        input message: 'Finished testing? (Click "Proceed" to continue)'
+        input message: ' > Finished testing? (Click "Proceed" to continue)'
         sh "docker ps -f name=hello -q | xargs --no-run-if-empty docker container stop"
         sh "docker container ls -a -fname=hello -q | xargs -r docker container rm"
       }
