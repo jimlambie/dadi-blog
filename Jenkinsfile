@@ -25,13 +25,13 @@ pipeline {
         echo 'Deploying...'
 
         sh "docker pull jimlambie/${IMAGE_TAG}"
-        sh "docker run -d --restart=always --name 'hello' -e NODE_ENV=test -e VIRTUAL_HOST=${IMAGE_TAG}.mustdash.es -p 3001:3001 jimlambie/${IMAGE_TAG}"
+        sh "docker run -d --restart=always --name '${IMAGE_TAG}' -e NODE_ENV=test -e VIRTUAL_HOST=${IMAGE_TAG}.mustdash.es -p 3001:3001 jimlambie/${IMAGE_TAG}"
 
         slackSend color: "good", message: "${env.JOB_NAME} deployed. Test it here: http://${IMAGE_TAG}.mustdash.es"
 
         input message: ' > Finished testing? (Click "Proceed" to continue)'
-        sh "docker ps -f name=hello -q | xargs --no-run-if-empty docker container stop"
-        sh "docker container ls -a -fname=hello -q | xargs -r docker container rm"
+        sh "docker ps -f name=${IMAGE_TAG} -q | xargs --no-run-if-empty docker container stop"
+        sh "docker container ls -a -fname=${IMAGE_TAG} -q | xargs -r docker container rm"
       }
     }
   }
