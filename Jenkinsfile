@@ -13,9 +13,16 @@ pipeline {
       steps {
         echo "Building...${IMAGE_TAG}"
 
-        sh "docker build -t ${IMAGE_TAG} ."
-        sh "docker tag ${IMAGE_TAG} jimlambie/${IMAGE_TAG}"
-        sh "docker push jimlambie/${IMAGE_TAG}"
+        // sh "docker build -t ${IMAGE_TAG} ."
+        // sh "docker tag ${IMAGE_TAG} jimlambie/${IMAGE_TAG}"
+
+        def newImage = docker.build("jimlambie/${IMAGE_TAG}")
+
+        docker.withRegistry('hub.docker.come', 'docker-credentials') {
+          // sh "docker push jimlambie/${IMAGE_TAG}"
+          newImage.push()
+        }
+
         sh "docker rmi jimlambie/${IMAGE_TAG}"
       }
     }
